@@ -1,3 +1,4 @@
+from flasgger import Swagger
 from flask import Flask
 
 
@@ -22,7 +23,8 @@ def create_app(config=None):
 	from .login_manager import login_manager
 	login_manager.init_app(app)
 
-	from .blueprints import auth
-	app.register_blueprint(auth)
+	from .blueprints.api import api_blueprint
+	app.register_blueprint(api_blueprint)
 
+	swagger = Swagger(app)
 	return app

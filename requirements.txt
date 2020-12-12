@@ -4,3 +4,6 @@ flask
 Flask-SQLAlchemy
 geoalchemy2
 flask_login
+Flask-RESTful
+email_validator
+flasgger

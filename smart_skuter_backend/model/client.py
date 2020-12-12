@@ -17,10 +17,9 @@ class Client(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 
 	role = db.Column(db.Enum(ClientRole), nullable=False, default=ClientRole.NORMAL)
-	username = db.Column(db.String, nullable=False)
+	email = db.Column(db.String, nullable=False)
 	name = db.Column(db.String, nullable=False)
 	surname = db.Column(db.String, nullable=False)
-	login = db.Column(db.String, nullable=False)
 	password_hash = db.Column(db.String, nullable=False)
 
 	start_account_date = db.Column(db.TIMESTAMP, nullable=False)

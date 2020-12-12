@@ -6,10 +6,10 @@ from ..db import db
 from ..model import Client
 
 
-def authenticate(username: str, password: str) -> bool:
+def authenticate(email: str, password: str) -> bool:
 	try:
 		client = db.session.query(Client)\
-			.filter_by(username=username)\
+			.filter_by(email=email)\
 			.first()
 
 		if not client:
@@ -22,5 +22,18 @@ def authenticate(username: str, password: str) -> bool:
 		return True
 
 	except exc.SQLAlchemyError:
-		abort(500)
+		raise RuntimeError("Internal error")
 
+
+def register(email, name, surname, password):
+	client = Client()
+	client.email = email
+	client.name = name
+	client.surname = surname
+	client.set_password(password)
+	#todo: check already exist
+	try:
+		db.session.add(client)
+		db.session.commit()
+	except exc.SQLAlchemyError:
+		raise RuntimeError("Internal error")
