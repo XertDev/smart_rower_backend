@@ -1,5 +1,7 @@
 import enum
 
+from sqlalchemy.ext.hybrid import hybrid_property
+
 from ..db import db
 
 
@@ -15,3 +17,6 @@ class Scooter(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 
 	state = db.Column(db.Enum(ScooterState), nullable=False, default=ScooterState.AVAILABLE, server_default="AVAILABLE")
+
+	info_history = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", lazy="dynamic")
+	latest_info = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", uselist=False)

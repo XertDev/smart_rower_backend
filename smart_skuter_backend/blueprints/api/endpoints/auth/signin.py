@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
 
 from smart_skuter_backend.services.client import authenticate
 from ..validators import email, min_length
@@ -15,7 +15,7 @@ parser.add_argument(
 )
 
 
-class SignIn(Resource):
+class SignInEndpoint(Resource):
 	def post(self):
 		"""
 		Client's sign in endpoint
@@ -56,16 +56,6 @@ class SignIn(Resource):
 							type: string
 							example: session=abcde1234; Path=/; HttpOnly
 			401:
-				description: Internal error
-				content:
-					application/json:
-						schema:
-							type: object
-							properties:
-								status:
-								type: string
-						example: {"status": "Internal error"}
-			500:
 				description: Invalid username or password
 				content:
 					application/json:
@@ -75,12 +65,24 @@ class SignIn(Resource):
 								status:
 								type: string
 						example: {"status": "Invalid username or password"}
+
+			500:
+				description: Internal error
+				content:
+					application/json:
+						schema:
+							type: object
+							properties:
+								status:
+								type: string
+						example: {"status": "Internal error"}
+
 		"""
 		args = parser.parse_args()
 		try:
 			result = authenticate(args.email, args.password)
 			if not result:
-				return {"state": "Invalid username or password"}, 401
+				abort(401, status="Invalid username or password")
 		except RuntimeError as e:
-			return {"status": str(e)}, 500
-		return {"state": "Ok"}, 200
+			abort(500, status="Internal error")
+		return {"status": "Ok"}, 200

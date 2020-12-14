@@ -15,3 +15,9 @@ def min_length(length):
 			return value
 		raise ValidationError("String must be at least {} characters long".format(length))
 	return validate
+
+
+def enum_member(enum_cls):
+	def validate(value):
+		return value in enum_cls.__member__
+	return validate

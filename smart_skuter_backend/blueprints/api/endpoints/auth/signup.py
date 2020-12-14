@@ -1,4 +1,4 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
 
 from smart_skuter_backend.blueprints.api.endpoints.validators import email, min_length
 from smart_skuter_backend.services.client import register
@@ -22,7 +22,7 @@ parser.add_argument(
 )
 
 
-class SignUp(Resource):
+class SignUpEndpoint(Resource):
 	def post(self):
 		"""
 		Client's sign up endpoint
@@ -80,5 +80,5 @@ class SignUp(Resource):
 		try:
 			register(args.email, args.name, args.surname, args.password)
 		except RuntimeError as e:
-			return {"status": str(e)}, 500
+			abort(500, status="Internal error")
 		return {"status": "Ok"}, 200
