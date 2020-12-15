@@ -1,6 +1,7 @@
-from flask_restful import Resource, abort, marshal_with
+from flask_restful import Resource, abort, marshal_with, reqparse
 from sqlalchemy import exc
 
+from smart_skuter_backend.blueprints.api.endpoints.validators import enum_member
 from smart_skuter_backend.db import db
 from smart_skuter_backend.model import Scooter, ScooterState
 from ..fields import scooter_with_status_fields
@@ -37,6 +38,13 @@ class ScootersEndpoint(Resource):
 			return db.session.query(Scooter).all()
 		except exc.SQLAlchemyError:
 			abort(500, status="Internal error")
+
+	create_parser = reqparse.RequestParser()
+	create_parser.add_argument(
+		"state", dest="state",
+		location="json", type=enum_member(ScooterState), required=False,
+		default="AVAILABLE"
+	)
 
 	@marshal_with(scooter_with_status_fields)
 	def post(self):

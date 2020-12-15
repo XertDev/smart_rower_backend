@@ -7,3 +7,4 @@ flask_login
 Flask-RESTful
 email_validator
 flasgger
+psycopg2

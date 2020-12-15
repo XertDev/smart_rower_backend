@@ -60,9 +60,4 @@ class ScooterEndpoint(Resource):
 		except exc.SQLAlchemyError:
 			abort(500, status="Internal error")
 
-	create_parser = reqparse.RequestParser()
-	create_parser.add_argument(
-		"state", dest="state",
-		location="json", type=enum_member(ScooterState), required=False,
-		default="AVAILABLE"
-	)
+
