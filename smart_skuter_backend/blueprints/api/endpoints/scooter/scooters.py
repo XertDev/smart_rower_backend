@@ -1,3 +1,4 @@
+from flask import request
 from flask_restful import Resource, abort, marshal_with, reqparse
 from sqlalchemy import exc
 
@@ -82,7 +83,7 @@ class ScootersEndpoint(Resource):
 		args = self.create_parser.parse_args()
 
 		scooter = Scooter()
-		scooter.state = ScooterState[args.state]
+		scooter.state = args.state
 		db.session.add(scooter)
 		try:
 			db.session.commit()

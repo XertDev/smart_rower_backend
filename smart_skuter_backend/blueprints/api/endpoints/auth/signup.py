@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse, abort
 
 from smart_skuter_backend.blueprints.api.endpoints.validators import email, min_length
+from smart_skuter_backend.exceptions import AlreadyExistError
 from smart_skuter_backend.services.client import register
 
 parser = reqparse.RequestParser()
@@ -65,6 +66,16 @@ class SignUpEndpoint(Resource):
 								status:
 								type: string
 							example: {"status": "Ok"}
+			409:
+				description: User with specified email already exist
+				content:
+					application/json:
+						schema:
+							type: object
+							properties:
+								status:
+								type: string
+						example: {"status": "User with specified email already exist"}
 			500:
 				description: Internal error
 				content:
@@ -79,6 +90,8 @@ class SignUpEndpoint(Resource):
 		args = parser.parse_args()
 		try:
 			register(args.email, args.name, args.surname, args.password)
-		except RuntimeError as e:
+		except AlreadyExistError as e:
+			abort(409, status=str(e))
+		except RuntimeError:
 			abort(500, status="Internal error")
 		return {"status": "Ok"}, 200

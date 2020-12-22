@@ -1,6 +1,8 @@
 import email_validator
 from werkzeug.routing import ValidationError
 
+from smart_skuter_backend.model import ScooterState
+
 
 def email(email_str):
 	if email_validator.validate_email(email_str):
@@ -19,5 +21,7 @@ def min_length(length):
 
 def enum_member(enum_cls):
 	def validate(value):
-		return value in enum_cls.__member__
+		if value in enum_cls.__members__:
+			return ScooterState[value]
+		raise ValidationError("Invalid value for enum")
 	return validate

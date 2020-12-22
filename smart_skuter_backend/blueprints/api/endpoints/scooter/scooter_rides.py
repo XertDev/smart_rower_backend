@@ -1,7 +1,7 @@
 from flask_restful import Resource, abort
 from sqlalchemy import exc
 
-from smart_skuter_backend import db
+from smart_skuter_backend.db import db
 from smart_skuter_backend.model import Ride
 
 
@@ -57,9 +57,9 @@ class ScooterRidesEndpoint(Resource):
 		try:
 			# todo: with entities?
 			scooter_exist = db.session.query(db.exists().where(Ride.scooter_id == scooter_id)).scalar()
-			if scooter_exist:
+			if not scooter_exist:
 				return {
-					"ride_ids": db.query(Ride.id).filter(Ride.scooter_id == scooter_id).all()
+					"ride_ids": db.session.query(Ride.id).filter(Ride.scooter_id == scooter_id).all()
 				}
 			else:
 				abort(404, status="Scooter id={} does not exist".format(scooter_id))

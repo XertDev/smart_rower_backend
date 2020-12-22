@@ -2,6 +2,7 @@ from flask_login import login_user
 from sqlalchemy import exc
 from werkzeug.exceptions import abort
 
+from smart_skuter_backend.exceptions import AlreadyExistError
 from ..db import db
 from ..model import Client
 
@@ -31,7 +32,8 @@ def register(email, name, surname, password):
 	client.name = name
 	client.surname = surname
 	client.set_password(password)
-	#todo: check already exist
+	if db.session.query(db.exists().where(Client.email == email)).scalar():
+		raise AlreadyExistError("User already exist")
 	try:
 		db.session.add(client)
 		db.session.commit()

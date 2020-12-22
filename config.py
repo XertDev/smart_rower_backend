@@ -45,6 +45,49 @@ SWAGGER = {
 						"$ref": "#/components/schemas/ScooterState"
 					}
 				}
+			},
+			"RideCheckpoint": {
+				"type": "object",
+				"properties": {
+					"timestamp": {
+						"type": "date"
+					},
+					"battery_level": {
+						"type": "integer"
+					},
+					"location_x": {
+						"type": "float"
+					},
+					"location_y": {
+						"type": "float"
+					}
+				}
+			},
+			"Ride": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"client_id": {
+						"type": "integer"
+					},
+					"scooter_id": {
+						"type": "integer"
+					},
+					"start_time": {
+						"type": "date"
+					},
+					"end_time": {
+						"type": "date"
+					},
+					"checkpoints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RideCheckpoint"
+						}
+					}
+				}
 			}
 		}
 	}
