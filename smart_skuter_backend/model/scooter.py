@@ -16,4 +16,4 @@ class Scooter(db.Model):
 	state = db.Column(db.Enum(ScooterState), nullable=False, default=ScooterState.AVAILABLE, server_default="AVAILABLE")
 
 	info_history = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", lazy="dynamic")
-	latest_info = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", uselist=False)
+	latest_info = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", uselist=False, lazy=False)

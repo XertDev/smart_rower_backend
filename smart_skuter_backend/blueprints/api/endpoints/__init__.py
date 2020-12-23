@@ -1,3 +1,3 @@
 from .auth import SignUpEndpoint, SignInEndpoint
-from .scooter import ScootersEndpoint, ScooterEndpoint, ScooterRidesEndpoint
+from .scooter import ScootersEndpoint, ScooterEndpoint, ScooterRidesEndpoint, ScooterNearestEndpoint
 from .ride import RideEndpoint

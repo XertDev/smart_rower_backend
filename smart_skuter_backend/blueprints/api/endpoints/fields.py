@@ -10,6 +10,11 @@ scooter_with_status_fields = {
 	}, default={})
 }
 
+scooter_distance_fields = {
+	"scooter": fields.Nested(scooter_with_status_fields),
+	"distance": fields.Float
+}
+
 ride_details = {
 	"id": fields.Integer,
 	"client_id": fields.Integer,
