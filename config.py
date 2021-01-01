@@ -88,6 +88,44 @@ SWAGGER = {
 						}
 					}
 				}
+			},
+			"Client": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer"
+					},
+					"role": {
+						"type": "enum"
+					},
+					"email": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"surname": {
+						"type": "string"
+					},
+					"password_hash": {
+						"type": "string"
+					},
+					"start_account_history": {
+						"type": "timestamp"
+					},
+					"surname": {
+						"type": "string"
+					},
+					"surname": {
+						"type": "string"
+					},
+					"checkpoints": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/RideCheckpoint"
+						}
+					}
+				}
 			}
 		}
 	}

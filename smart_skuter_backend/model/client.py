@@ -38,3 +38,6 @@ class Client(db.Model, UserMixin):
 	def get_id(self):
 		return self.id
 
+	def get_rides_history(self):
+		return self.rides
+
