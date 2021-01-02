@@ -1,0 +1,17 @@
+<nav class="main-header navbar navbar-lightblue navbar-expand navbar-dark">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" data-widget="pushmenu" href="#" role="button"
+			   data-enable-remember="true" data-no-transition-after-reload="false">
+				<i class="fas fa-bars"></i>
+			</a>
+		</li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+		<li class="nav-item">
+			<a class="nav-link btn bg-gradient-red" href="{{ url_for("admin_auth.logout") }}">
+				{{ gettext("Log out") }}
+			</a>
+		</li>
+	</ul>
+</nav>

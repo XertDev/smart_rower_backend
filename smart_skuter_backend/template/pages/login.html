@@ -1,0 +1,78 @@
+{% extends "layout/fullscreen.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.0.5/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <style>
+        .has-image-centered
+        {
+              margin-left: auto;
+              margin-right: auto;
+        }
+
+        html
+        {
+            overflow-y: auto;
+        }
+    </style>
+{% endblock stylesheets %}
+
+{% block body_class %}login-page{% endblock body_class %}
+
+{% block content %}
+
+    <div class="login-box">
+        <div class="login-logo">
+            <figure class="image is-128x128 has-image-centered">
+                <img src="https://via.placeholder.com/150" class="">
+            </figure>
+            <span>
+                {{ gettext("Log in") }}
+            </span>
+        </div>
+
+        <div class="card">
+            <div class="card-body login-card-body">
+                <form method="post" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            {{ form.email(placeholder=gettext("Email"), class="input is-primary", type="email") }}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control has-icons-left">
+                            {{ form.password(placeholder=gettext("Password"), class="input is-primary", type="password") }}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock">
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <p class="login-bom-msg">
+                        {% if msg %}
+                            {{ msg | safe }}
+                        {% endif %}
+                    </p>
+                    <div class="control">
+                        <button type="submit" class="button is-link" name="login">
+                            {{ gettext("Log in") }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block javascripts %}
+
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+{% endblock javascripts %}

@@ -38,3 +38,6 @@ class Client(db.Model, UserMixin):
 	def get_id(self):
 		return self.id
 
+	def __repr__(self):
+		return self.email
+
