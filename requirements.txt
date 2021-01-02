@@ -8,3 +8,9 @@ Flask-RESTful
 email_validator
 flasgger
 psycopg2
+wtforms
+flask-admin
+xlrd
+xlwt
+flask_wtf
+flask_babelex

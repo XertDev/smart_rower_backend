@@ -1,4 +1,6 @@
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO=True
+
 SWAGGER = {
 	"title": "API",
 	"uiversion": 3,

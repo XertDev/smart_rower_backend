@@ -40,4 +40,6 @@ class Client(db.Model, UserMixin):
 
 	def get_rides_history(self):
 		return self.rides
+	def __repr__(self):
+		return self.email
 
