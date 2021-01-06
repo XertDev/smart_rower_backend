@@ -1,2 +1,4 @@
 from .client_rides_history import ClientRidesHistoryEndpoint
+from .client_subscription_history import ClientSubscriptionHistoryEndpoint
+from .has_active_subscription import HasActiveSubscriptionEndpoint
 
