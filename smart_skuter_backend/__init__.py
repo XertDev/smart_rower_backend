@@ -9,6 +9,8 @@ def create_app(config=None):
 		template_folder="template"
 	)
 
+	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://skuter:skuter@localhost/skuter'
+
 	app.config.from_mapping(
 		SECRET_KEY="dev"
 	)

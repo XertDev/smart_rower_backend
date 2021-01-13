@@ -11,6 +11,9 @@ class Ride(db.Model):
 	start_time = db.Column(db.TIMESTAMP, nullable=False)
 	end_time = db.Column(db.TIMESTAMP, nullable=True)
 
+	kilometers_distance = db.Column(db.Float, nullable=False)
+	pricing = db.Column(db.Float, nullable=False)
+
 	checkpoints = db.relationship(
 		"ScooterInfo",
 		primaryjoin="and_("
