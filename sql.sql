@@ -61,7 +61,7 @@ create table if not exists scooter_info
 	zone_id int not null,
 
 	constraint scooter_info_pkey
-		primary key (scooter_id, actual_time),
+		primary key (scooter_id, actual_time)
 );
 
 create index if not exists idx_scooter_info_location
@@ -70,8 +70,8 @@ create index if not exists idx_scooter_info_location
 create index if not exists scooter_info_location_index
 	on scooter_info (location);
 
-create index if not exists scooter_info_timestamp_index
-	on scooter_info (timestamp desc);
+create index if not exists scooter_info_actual_time_index
+	on scooter_info (actual_time desc);
 
 create table if not exists rides
 (
