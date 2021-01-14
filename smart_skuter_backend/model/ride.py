@@ -19,7 +19,7 @@ class Ride(db.Model):
 		primaryjoin="and_("
 			"Ride.scooter_id == ScooterInfo.scooter_id,"
 			"between("
-			"ScooterInfo.timestamp,"
+			"ScooterInfo.actual_time,"
 			"Ride.start_time,"
 			"Ride.end_time"
 			")"
@@ -29,8 +29,10 @@ class Ride(db.Model):
 	)
 
 	__table_args__ = (
-		db.ForeignKeyConstraint([scooter_id, start_time], ["scooter_info.scooter_id", "scooter_info.timestamp"]),
-		db.ForeignKeyConstraint([scooter_id, end_time], ["scooter_info.scooter_id", "scooter_info.timestamp"]),
+		db.ForeignKeyConstraint([scooter_id, start_time], ["scooter_info.scooter_id", "scooter_info.actual_time"]),
+		db.ForeignKeyConstraint([scooter_id, end_time], ["scooter_info.scooter_id", "scooter_info.actual_time"]),
 		{}
 	)
+
+
 

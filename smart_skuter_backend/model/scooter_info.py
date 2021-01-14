@@ -18,7 +18,7 @@ class ScooterInfo(db.Model):
 	is_charging = db.Column(db.Boolean, nullable=False)
 	is_locked = db.Column(db.Boolean, nullable=False)
 	is_riding = db.Column(db.Boolean, nullable=False)
-	reversed_by = db.Column(db.Integer, nullable=True)
+	reserved_by = db.Column(db.Integer, nullable=True)
 	ready_to_ride = db.Column(db.Boolean, nullable=False)
 	zone_id = db.Column(db.Integer, nullable=False)
 

@@ -1,0 +1,89 @@
+{% extends "pages/admin/base.html" %}
+
+{% block body %}
+<div class="row">
+    <section class="col-lg-12 connectedSortable ui-sortable">
+        <div class="card">
+            <div class="card-header ui-sortable-handle">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    {{gettext("Competitions")}}
+                </h3>
+            </div>
+            <div class="card-body">
+                <div id="scooters_map"></div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock body %}
+
+{% block tail %}
+{{ super() }}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button)
+    $(".connectedSortable").sortable({
+        placeholder: "sort-highlight",
+        connectWith: ".connectedSortable",
+        handle: ".card-header, .nav-tabs",
+        forcePlaceholderSize: true,
+        zIndex: 999999
+    }).disableSelection();
+    $('.connectedSortable .card-header, .connectedSortable .nav-tabs-custom').css('cursor', 'move')
+
+    var mymap = L.map('scooters_map').setView([51.505, -0.09], 13)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    }).addTo(mymap);
+
+    var greenIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    var redIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    var goldIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+
+    {% for scooter in scooters_available %}
+    {% set info = scooter.latest_info %}
+        L.marker([ {{info.location_x}}, {{info.location_y}} ], {icon: greenIcon}).addTo(mymap);
+    {% endfor %}
+
+    {% for scooter in scooters_unavailable %}
+    {% set info = scooter.latest_info %}
+        L.marker([ {{info.location_x}}, {{info.location_y}} ], {icon: redIcon}).addTo(mymap);
+    {% endfor %}
+
+    {% for scooter in scooters_in_run %}
+    {% set info = scooter.latest_info %}
+        L.marker([ {{info.location_x}}, {{info.location_y}} ], {icon: goldIcon}).addTo(mymap);
+    {% endfor %}
+    // get available scooters
+    //var marker = L.marker([51.5, -0.09]).addTo(mymap);
+
+</script>
+
+{% endblock tail %}

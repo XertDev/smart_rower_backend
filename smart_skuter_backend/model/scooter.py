@@ -19,5 +19,5 @@ class Scooter(db.Model):
 	mac = db.Column(db.Integer, nullable=False)
 	vehicle_type = db.Column(db.Integer, nullable=False)
 
-	info_history = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", lazy="dynamic")
-	latest_info = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.timestamp)", uselist=False, lazy=False)
+	info_history = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.actual_time)", lazy="dynamic")
+	latest_info = db.relationship("ScooterInfo", order_by="desc(ScooterInfo.actual_time)", uselist=False, lazy=False)

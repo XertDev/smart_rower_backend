@@ -23,7 +23,7 @@ class ScootersView(LTEModelView):
 	column_labels = {
 		"latest_info.location_x": "Pos X",
 		"latest_info.location_y": "Pos Y",
-		"latest_info.timestamp": "Timestamp",
+		"latest_info.actual_time": "Timestamp",
 		"latest_info.battery_level": "Battery level"
 
 	}
@@ -31,7 +31,7 @@ class ScootersView(LTEModelView):
 	column_list = [
 		"id",
 		"state",
-		"latest_info.timestamp",
+		"latest_info.actual_time",
 		"latest_info.location_x",
 		"latest_info.location_y",
 		"latest_info.battery_level"
